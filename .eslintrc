@@ -1,0 +1,8 @@
+{
+  "root": true,
+  "extends": "@lab009/eslint-config-magma",
+  "globals": {
+    "window": false,
+    "document": false
+  }
+}
