@@ -6,6 +6,7 @@ import { StaticRouter } from 'react-router-dom'
 import { withAsyncComponents } from '@lab009/splitter'
 import config from '@lab009/magma-config'
 
+import configureStore from 'shared/core/store'
 import Root from 'shared/components/Root'
 
 import ServerHTML from './ServerHTML'
@@ -40,11 +41,12 @@ export default function reactSSRMiddleware(request, response) {
   // First create a context for <StaticRouter>, which will allow us to
   // query for the results of the render.
   const reactRouterContext = {}
+  const store = configureStore()
 
   // Declare our React application.
   const app = (
     <StaticRouter location={request.url} context={reactRouterContext}>
-      <Root />
+      <Root store={store} />
     </StaticRouter>
   )
 
@@ -58,6 +60,7 @@ export default function reactSSRMiddleware(request, response) {
         nonce={nonce}
         helmet={Helmet.rewind()}
         asyncComponents={{ state, STATE_IDENTIFIER }}
+        initialState={store.getState()}
       />,
     )
 

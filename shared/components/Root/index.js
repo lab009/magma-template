@@ -1,4 +1,5 @@
-import React, { Component } from 'react'
+import React from 'react'
+import { Provider, Component, PropTypes } from '@lab009/teide'
 
 import App from 'shared/components/App'
 
@@ -13,9 +14,15 @@ class Root extends Component {
 
   render() {
     return (
-      <App />
+      <Provider store={this.props.store}>
+        <App />
+      </Provider>
     )
   }
+}
+
+Root.propTypes = {
+  store: PropTypes.object.isRequired,
 }
 
 export default Root

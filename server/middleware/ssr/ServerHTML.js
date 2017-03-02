@@ -13,6 +13,7 @@ import ClientConfig from '@lab009/magma-config/ClientConfig'
 import ifElse from '@lab009/magma-utils/logic/ifElse'
 import removeNil from '@lab009/magma-utils/arrays/removeNil'
 
+import InitialState from 'shared/components/InitialState'
 import HTML from 'shared/components/HTML'
 
 import getClientBundleEntryAssets from './getClientBundleEntryAssets'
@@ -42,6 +43,7 @@ function scriptTag(jsFilePath) {
 function ServerHTML(props) {
   const {
     asyncComponents,
+    initialState,
     helmet,
     nonce,
     reactAppString,
@@ -70,6 +72,9 @@ function ServerHTML(props) {
     // that we can safely expose some configuration values to the
     // client bundle that gets executed in the browser.
     <ClientConfig nonce={nonce} />,
+    // Bind the initial application state based on the server render
+    // so the client can register the correct initial state for the view.
+    <InitialState state={initialState} nonce={nonce} />,
     // Bind our async components state so the client knows which ones
     // to initialise so that the checksum matches the server response.
     ifElse(asyncComponents)(
@@ -121,6 +126,8 @@ ServerHTML.propTypes = {
     state: PropTypes.object.isRequired,
     STATE_IDENTIFIER: PropTypes.string.isRequired,
   }),
+  // eslint-disable-next-line react/forbid-prop-types
+  initialState: PropTypes.object,
   // eslint-disable-next-line react/forbid-prop-types
   helmet: PropTypes.object,
   nonce: PropTypes.string,

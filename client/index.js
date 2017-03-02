@@ -4,10 +4,14 @@ import BrowserRouter from 'react-router-dom/BrowserRouter'
 import { withAsyncComponents } from '@lab009/splitter'
 import AppContainer from '@lab009/magma-scripts/client/AppContainer'
 
+import configureStore from 'shared/core/store'
 import Root from 'shared/components/Root'
+
+import initialState from './initialState'
 
 // Get the DOM Element that will host our React application.
 const container = document.querySelector('#app')
+const store = configureStore(initialState)
 
 // Does the user's browser support the HTML5 history API?
 const supportsHistory = 'pushState' in window.history
@@ -23,7 +27,7 @@ function renderApp(TheApp) {
   const app = (
     <AppContainer>
       <BrowserRouter forceRefresh={!supportsHistory}>
-        <TheApp />
+        <TheApp store={store} />
       </BrowserRouter>
     </AppContainer>
   )
