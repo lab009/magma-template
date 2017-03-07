@@ -2,9 +2,9 @@ import React from 'react'
 import { render } from 'react-dom'
 import BrowserRouter from 'react-router-dom/BrowserRouter'
 import { withAsyncComponents } from '@lab009/splitter'
+import AppContainer from '@lab009/magma-scripts/client/AppContainer'
 
 import Root from 'shared/components/Root'
-import ReactHotLoader from '@lab009/magma-scripts/components/ReactHotLoader'
 
 // Get the DOM Element that will host our React application.
 const container = document.querySelector('#app')
@@ -21,11 +21,11 @@ function renderApp(TheApp) {
   // If the user's browser doesn't support the HTML5 history API then we
   // will force full page refreshes on each page change.
   const app = (
-    <ReactHotLoader>
+    <AppContainer>
       <BrowserRouter forceRefresh={!supportsHistory}>
         <TheApp />
       </BrowserRouter>
-    </ReactHotLoader>
+    </AppContainer>
   )
 
   // We use the @lab009/splitter in order to support code splitting of
@@ -41,7 +41,7 @@ renderApp(Root)
 // This registers our service worker for asset caching and offline support.
 // Keep this as the last item, just in case the code execution failed (thanks
 // to react-boilerplate for that tip.)
-require('./registerServiceWorker')
+require('@lab009/magma-scripts/client/registerServiceWorker')
 
 // The following is needed so that we can support hot reloading our application.
 if (process.env.BUILD_FLAG_IS_DEV && module.hot) {
