@@ -8,7 +8,7 @@
  * NOTE: We only enable the service worker for non-development environments.
  */
 
-import config from '@lab009/magma-scripts/config'
+import config from '@lab009/magma-config'
 
 if (!process.env.BUILD_FLAG_IS_DEV) {
   // We check the shared config, ensuring that the service worker has been

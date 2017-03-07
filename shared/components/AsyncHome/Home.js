@@ -1,7 +1,7 @@
 import React from 'react'
 import Helmet from 'react-helmet'
 
-import config from '@lab009/magma-scripts/config'
+import config from '@lab009/magma-config'
 
 function Home() {
   return (

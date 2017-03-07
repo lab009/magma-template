@@ -5,11 +5,11 @@
  * absolute paths should be resolved during runtime by our build internal/server.
  */
 
-import * as EnvVars from '@lab009/magma-scripts/config/envVars'
+import EnvVars from '@lab009/magma-config/envVars'
 
 const values = {
   // The configuration values that should be exposed to our client bundle.
-  // This value gets passed through the /shared/utils/objects/filterWithRules
+  // This value gets passed through the @lab009/magma-utils/objects/filterWithRules
   // util to create a filter object that can be serialised and included
   // with our client bundle.
   clientConfigFilter: {
