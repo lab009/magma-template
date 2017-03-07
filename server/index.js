@@ -2,14 +2,11 @@ import express from 'express'
 import compression from 'compression'
 import { resolve as pathResolve } from 'path'
 import appRootDir from 'app-root-dir'
-import config from '@lab009/magma-scripts/config'
+import config from '@lab009/magma-config'
+import { createReactSSR, security, clientBundle, serviceWorker, offlinePage, errorHandlers } from '@lab009/magma-server'
 
-import reactApplication from './middleware/reactApplication'
-import security from './middleware/security'
-import clientBundle from './middleware/clientBundle'
-import serviceWorker from './middleware/serviceWorker'
-import offlinePage from './middleware/offlinePage'
-import errorHandlers from './middleware/errorHandlers'
+import Root from 'shared/components/Root'
+import HTML from 'shared/components/HTML'
 
 // Create our express based server.
 const app = express()
@@ -42,7 +39,7 @@ app.use(config('bundles.client.webPath'), clientBundle)
 app.use(express.static(pathResolve(appRootDir.get(), config('publicAssetsPath'))))
 
 // The React application middleware.
-app.get('*', reactApplication)
+app.get('*', createReactSSR(Root, HTML))
 
 // Error Handler middlewares.
 app.use(...errorHandlers)
